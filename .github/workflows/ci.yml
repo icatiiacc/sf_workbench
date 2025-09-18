@@ -26,11 +26,22 @@ jobs:
       - name: Install deps
         run: npm ci --no-audit --no-fund --legacy-peer-deps
 
-      - name: Run lint
-        run: npm run lint
+      - name: Run lint (only if LWC/Aura exist)
+        run: |
+          FILES=$(git ls-files '**/lwc/**/*.js' '**/aura/**/*.js' | wc -l)
+          if [ "$FILES" -gt 0 ]; then
+            npm run lint
+          else
+            echo "No LWC/Aura JS to lint — skipping."
+          fi
 
-      - name: Run tests (LWC Jest)
-        run: npm run test -- --ci --reporters=default --reporters=jest-junit
+      - name: Run tests (LWC Jest) if present
+        run: |
+          if [ -d "force-app/main/default/lwc" ]; then
+            npm run test -- --ci --reporters=default --reporters=jest-junit
+          else
+            echo "No LWC folder — skipping Jest."
+          fi
 
   deploy:
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.deploy == 'true' }}
