@@ -2,13 +2,13 @@ name: CI (Lint + Tests) & Deploy
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
     inputs:
       deploy:
-        description: 'Run deploy to dev org after CI'
+        description: "Run deploy to dev org after CI"
         required: false
-        default: 'false'  # set to 'true' when triggering manually to deploy
+        default: "false" # set to 'true' when triggering manually to deploy
 
 jobs:
   ci:
@@ -20,8 +20,8 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: "18"
+          cache: "npm"
 
       - name: Install deps
         run: npm ci
