@@ -61,7 +61,7 @@ jobs:
           echo "$SFDX_AUTH_URL" > ./auth.txt
           sf org login sfdx-url --sfdx-url-file ./auth.txt --alias ci-org --set-default
           rm -f ./auth.txt
-          sf org whoami
+          sf org display --target-org ci-org --verbose
 
       - name: Validate source (check-only)
         run: sf project deploy validate --tests "RunLocalTests" --wait 30 || echo "Validation skipped/flexible"
