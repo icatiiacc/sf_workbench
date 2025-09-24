@@ -46,3 +46,17 @@ $RECYCLE.BIN/
 **/__pycache__/
 **/.venv/
 **/venv/
+
+# Auth / keys (ważne!)
+auth.txt
+*.pem
+*.key
+*.crt
+
+# Workspace files
+*.code-workspace
+
+# Backup / temp
+*.tmp
+*.bak
+*.swp
